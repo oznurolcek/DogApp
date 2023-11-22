@@ -104,39 +104,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12.0),
-                    topRight: Radius.circular(12.0),
-                  ),
-                  child: Image.network(
-                    myDogs[index]["imageUrl"],
-                    width: MediaQuery.of(context).size.width,
-                    height: 400,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.close,
-                        size: 14,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            buildSheetImage(index, context),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             Expanded(
               child: Column(
@@ -173,6 +141,42 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Stack buildSheetImage(int index, BuildContext context) {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+          child: Image.network(
+            myDogs[index]["imageUrl"],
+            width: MediaQuery.of(context).size.width,
+            height: 400,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          top: 12,
+          right: 12,
+          child: CircleAvatar(
+            radius: 15,
+            backgroundColor: Colors.white,
+            child: IconButton(
+              icon: const Icon(
+                Icons.close,
+                size: 14,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 
