@@ -32,48 +32,168 @@ class HomePage extends StatelessWidget {
           ),
           itemCount: myDogs.length,
           itemBuilder: (_, index) {
-            return Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.red,
-                    image: DecorationImage(
-                      image: NetworkImage(myDogs[index]["imageUrl"]),
-                      fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return _showBottomSheet(context, index);
+                    });
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.red,
+                      image: DecorationImage(
+                        image: NetworkImage(myDogs[index]["imageUrl"]),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                    child: ClipRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                        child: Center(
-                          child: Text(
-                            myDogs[index]["breed"],
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.normal,
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0)),
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0)),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                          child: Center(
+                            child: Text(
+                              myDogs[index]["breed"],
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Dialog _showBottomSheet(BuildContext context, int index) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.8,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12.0),
+                    topRight: Radius.circular(12.0),
+                  ),
+                  child: Image.network(
+                    myDogs[index]["imageUrl"],
+                    width: MediaQuery.of(context).size.width,
+                    height: 400,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 14,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Expanded(
+              child: Column(
+                children: [
+                  const Text(
+                    "Breed",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  // SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Divider(thickness: 0.3),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Text("Breed"),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Text(
+                    "Sub Breed",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Divider(thickness: 0.3),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Text("Sub Breed 1"),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  const Text("Sub Breed 2"),
+                ],
+              ),
+            ),
+            buildGenerateButton(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding buildGenerateButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.height * 0.07,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          child: const Text(
+            "Generate",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );
