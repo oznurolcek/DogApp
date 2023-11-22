@@ -1,5 +1,5 @@
 
-import 'package:dog_app/settings_page.dart';
+import 'package:dog_app/views/settings_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
