@@ -1,6 +1,4 @@
-
 import 'package:dog_app/views/home_page.dart';
-import 'package:dog_app/views/settings_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,8 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const HomePage(),
+    return const MaterialApp(
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
