@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -5,6 +7,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(24.0),
@@ -148,13 +151,13 @@ class SettingsPage extends StatelessWidget {
         children: [
           const Icon(Icons.account_tree_outlined),
           SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-          const Text(
-            "OS Version",
-            style: TextStyle(fontSize: 16),
+          Text(
+            Platform.isIOS ? "OS Version" : "Android Version",
+            style: const TextStyle(fontSize: 16),
           ),
           const Spacer(),
           Text(
-            "17.0.3",
+            Platform.operatingSystemVersion,
             style: TextStyle(color: Colors.grey.shade400),
           )
         ],
