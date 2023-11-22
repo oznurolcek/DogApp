@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.05,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                      borderRadius: const BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
                       color: Colors.black.withOpacity(0.3),
                     ),
                     child: ClipRect(
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             myDogs[index]["breed"],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12.0,
                               fontWeight: FontWeight.normal,
