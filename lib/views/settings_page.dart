@@ -14,34 +14,34 @@ class SettingsPage extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: ListView(
           children: [
-            buildHelpCell(context),
+            _buildHelpCell(context),
             SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
             SizedBox(height: context.screenHeight * 0.01),
-            buildRateUsCell(context),
+            _buildRateUsCell(context),
             SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
             SizedBox(height: context.screenHeight * 0.01),
-            buildShareCell(context),
+            _buildShareCell(context),
             SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
             SizedBox(height: context.screenHeight * 0.01),
-            buildTermsCell(context),
+            _buildTermsCell(context),
             SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
             SizedBox(height: context.screenHeight * 0.01),
-            buildPrivacyPolicyCell(context),
+            _buildPrivacyPolicyCell(context),
             SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
             SizedBox(height: context.screenHeight * 0.01),
-            buildVersionCell(context),
+            _buildVersionCell(context),
           ],
         ),
       ),
     );
   }
 
-  GestureDetector buildHelpCell(BuildContext context) {
+  GestureDetector _buildHelpCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [
@@ -62,7 +62,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  GestureDetector buildRateUsCell(BuildContext context) {
+  GestureDetector _buildRateUsCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [
@@ -83,7 +83,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  GestureDetector buildShareCell(BuildContext context) {
+  GestureDetector _buildShareCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [
@@ -104,7 +104,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  GestureDetector buildTermsCell(BuildContext context) {
+  GestureDetector _buildTermsCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [
@@ -125,7 +125,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  GestureDetector buildPrivacyPolicyCell(BuildContext context) {
+  GestureDetector _buildPrivacyPolicyCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [
@@ -146,7 +146,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  GestureDetector buildVersionCell(BuildContext context) {
+  GestureDetector _buildVersionCell(BuildContext context) {
     return GestureDetector(
       child: Row(
         children: [

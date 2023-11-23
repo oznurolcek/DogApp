@@ -24,74 +24,33 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: context.screenWidth * 0.5,
-            childAspectRatio: 1,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-          ),
-          itemCount: myDogs.length,
-          itemBuilder: (_, index) {
-            return GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return _showBottomSheet(context, index);
-                    });
-              },
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.red,
-                      image: DecorationImage(
-                        image: NetworkImage(myDogs[index]["imageUrl"]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    child: Container(
-                      width: context.screenWidth * 0.2,
-                      height: context.screenHeight * 0.05,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8.0),
-                            bottomLeft: Radius.circular(8.0)),
-                        color: Colors.black.withOpacity(0.3),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8.0),
-                            bottomLeft: Radius.circular(8.0)),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                          child: Center(
-                            child: Text(
-                              myDogs[index]["breed"],
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
-        ),
+        child: _buildGridView(context),
       ),
     );
+  }
+
+  GridView _buildGridView(BuildContext context) {
+    return GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: context.screenWidth * 0.5,
+          childAspectRatio: 1,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        itemCount: myDogs.length,
+        itemBuilder: (_, index) {
+          return GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return _showBottomSheet(context, index);
+                  });
+            },
+            child: _buildDogImage(index, context),
+          );
+        },
+      );
   }
 
   Dialog _showBottomSheet(BuildContext context, int index) {
@@ -105,7 +64,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSheetImage(index, context),
+            _buildSheetImage(index, context),
             SizedBox(height: context.screenHeight * 0.01),
             Expanded(
               child: Column(
@@ -129,7 +88,7 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: context.screenHeight* 0.005),
+                  SizedBox(height: context.screenHeight * 0.005),
                   const Divider(thickness: 0.3),
                   SizedBox(height: context.screenHeight * 0.005),
                   const Text("Sub Breed 1"),
@@ -138,14 +97,14 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            buildGenerateButton(context),
+            _buildGenerateButton(context),
           ],
         ),
       ),
     );
   }
 
-  Stack buildSheetImage(int index, BuildContext context) {
+  Stack _buildSheetImage(int index, BuildContext context) {
     return Stack(
       children: [
         ClipRRect(
@@ -155,7 +114,7 @@ class HomePage extends StatelessWidget {
           ),
           child: Image.network(
             myDogs[index]["imageUrl"],
-            width:context.screenWidth,
+            width: context.screenWidth,
             height: 400,
             fit: BoxFit.cover,
           ),
@@ -181,7 +140,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Padding buildGenerateButton(BuildContext context) {
+  Padding _buildGenerateButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
@@ -198,6 +157,56 @@ class HomePage extends StatelessWidget {
           child: const Text(
             "Generate",
             style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Stack _buildDogImage(int index, BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: NetworkImage(myDogs[index]["imageUrl"]),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        _buildBreedText(context, index)
+      ],
+    );
+  }
+
+  Positioned _buildBreedText(BuildContext context, int index) {
+    return Positioned(
+      bottom: 0.0,
+      left: 0.0,
+      child: Container(
+        width: context.screenWidth * 0.2,
+        height: context.screenHeight * 0.05,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0)),
+          color: Colors.black.withOpacity(0.3),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Center(
+              child: Text(
+                myDogs[index]["breed"],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
           ),
         ),
       ),
