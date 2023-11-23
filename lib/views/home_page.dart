@@ -1,20 +1,46 @@
 import 'dart:ui';
 
 import 'package:dog_app/core/extensions/context_extension.dart';
+import 'package:dog_app/models/dog.dart';
+import 'package:dog_app/service/dog_service.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
-  final List<Map> myDogs = List.generate(
-      100,
-      (index) => {
-            "id": index,
-            "name": "Dog $index",
-            "imageUrl":
-                "https://thumbs.dreamstime.com/b/golden-retriever-dog-21668976.jpg",
-            "breed": "Breed $index"
-          }).toList();
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final DogApiService _dogApiService = DogApiService();
+  late List<Dog> myDogs;
+  // final List<Map> myDogs = List.generate(
+  //     100,
+  //     (index) => {
+  //           "id": index,
+  //           "name": "Dog $index",
+  //           "imageUrl":
+  //               "https://thumbs.dreamstime.com/b/golden-retriever-dog-21668976.jpg",
+  //           "breed": "Breed $index"
+  //         }).toList();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDogs();
+  }
+
+Future<void> _loadDogs() async {
+    try {
+      List<Map<String, dynamic>> dogsData = await _dogApiService.getDogList();
+      setState(() {
+        myDogs = dogsData.map((data) => Dog.fromMap(data)).toList();
+      });
+    } catch (e) {
+      print('Error loading dogs: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +138,7 @@ class HomePage extends StatelessWidget {
             topRight: Radius.circular(12.0),
           ),
           child: Image.network(
-            myDogs[index]["imageUrl"],
+            myDogs[index].imageUrl,
             width: context.screenWidth,
             height: 300,
             fit: BoxFit.cover,
@@ -169,7 +195,7 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
-              image: NetworkImage(myDogs[index]["imageUrl"]),
+              image: NetworkImage(myDogs[index].imageUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -198,7 +224,7 @@ class HomePage extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Center(
               child: Text(
-                myDogs[index]["breed"],
+                myDogs[index].breed,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
