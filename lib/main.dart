@@ -1,4 +1,5 @@
-import 'package:dog_app/views/home_page.dart';
+import 'package:dog_app/core/init/navigation/navigation_route.dart';
+import 'package:dog_app/core/init/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,8 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationService.instance.navigatorKey,
     );
   }
 }
