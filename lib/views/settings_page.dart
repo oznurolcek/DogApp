@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -45,7 +47,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.info_outline),
+          SvgPicture.asset(ImageConstants.instance.helpIcon),
           SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Help",
@@ -66,7 +68,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.star_border_rounded),
+          SvgPicture.asset(ImageConstants.instance.rateUsIcon),
           SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Rate Us",
@@ -87,7 +89,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.ios_share_outlined),
+          SvgPicture.asset(ImageConstants.instance.shareIcon),
           SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Share with Friends",
@@ -108,7 +110,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.receipt_long_outlined),
+          SvgPicture.asset(ImageConstants.instance.termsIcon),
           SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Terms of Use",
@@ -129,7 +131,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.verified_user_outlined),
+          SvgPicture.asset(ImageConstants.instance.privacyIcon),
           SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Privacy Policy",
@@ -150,7 +152,7 @@ class SettingsPage extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          const Icon(Icons.account_tree_outlined),
+          SvgPicture.asset(ImageConstants.instance.versionIcon),
           SizedBox(width: context.screenWidth * 0.02),
           Text(
             Platform.isIOS ? "OS Version" : "Android Version",

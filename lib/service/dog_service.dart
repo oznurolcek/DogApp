@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dog_app/models/random_image.dart';
 import 'package:http/http.dart' as http;
 
 class DogApiService {
@@ -19,7 +20,7 @@ class DogApiService {
               dogsList.add({
                 "id": dogsList.length + 1,
                 "name": "Dog ${dogsList.length + 1}",
-                "imageUrl": "https://thumbs.dreamstime.com/b/golden-retriever-dog-21668976.jpg",
+                "imageUrl": BreedImage(message: "message", status: ""),
                 "breed": breed,
               });
             });

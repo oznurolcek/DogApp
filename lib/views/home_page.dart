@@ -28,10 +28,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    myDogs = [];
     _loadDogs();
   }
 
-Future<void> _loadDogs() async {
+  Future<void> _loadDogs() async {
     try {
       List<Map<String, dynamic>> dogsData = await _dogApiService.getDogList();
       setState(() {
@@ -46,7 +47,7 @@ Future<void> _loadDogs() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dog App"),
+        title: const Text("breeDogs"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -57,26 +58,27 @@ Future<void> _loadDogs() async {
 
   GridView _buildGridView(BuildContext context) {
     return GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: context.screenWidth * 0.5,
-          childAspectRatio: 1,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        itemCount: myDogs.length,
-        itemBuilder: (_, index) {
-          return GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return _showBottomSheet(context, index);
-                  });
-            },
-            child: _buildDogImage(index, context),
-          );
-        },
-      );
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: context.screenWidth * 0.5,
+        childAspectRatio: 1,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+      ),
+      itemCount: myDogs.length,
+      itemBuilder: (_, index) {
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return _showBottomSheet(context, index);
+                });
+                print(myDogs[index].imageUrl);
+          },
+          child: _buildDogImage(index, context),
+        );
+      },
+    );
   }
 
   Dialog _showBottomSheet(BuildContext context, int index) {
@@ -122,7 +124,7 @@ Future<void> _loadDogs() async {
                 ],
               ),
             ),
-            _buildGenerateButton(context),
+            _buildGenerateButton(context, index),
           ],
         ),
       ),
@@ -138,7 +140,7 @@ Future<void> _loadDogs() async {
             topRight: Radius.circular(12.0),
           ),
           child: Image.network(
-            myDogs[index].imageUrl,
+            myDogs[index].imageUrl.message,
             width: context.screenWidth,
             height: 300,
             fit: BoxFit.cover,
@@ -165,14 +167,16 @@ Future<void> _loadDogs() async {
     );
   }
 
-  Padding _buildGenerateButton(BuildContext context) {
+  Padding _buildGenerateButton(BuildContext context, int index) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
         width: context.screenWidth * 0.7,
         height: context.screenHeight * 0.07,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            _buildRandomSheet(context, index);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
             shape: RoundedRectangleBorder(
@@ -188,6 +192,32 @@ Future<void> _loadDogs() async {
     );
   }
 
+  Future<dynamic> _buildRandomSheet(BuildContext context, int index) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            child: SizedBox(
+              height: context.screenHeight * 0.3,
+              width: context.screenWidth * 0.3,
+              child: Column(
+                children: [
+                  Image.network(
+                    myDogs[index].imageUrl.message,
+                    width: context.screenWidth,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   Stack _buildDogImage(int index, BuildContext context) {
     return Stack(
       children: [
@@ -195,7 +225,7 @@ Future<void> _loadDogs() async {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
-              image: NetworkImage(myDogs[index].imageUrl),
+              image: NetworkImage(myDogs[index].imageUrl.message),
               fit: BoxFit.cover,
             ),
           ),

@@ -1,7 +1,9 @@
+import 'package:dog_app/models/random_image.dart';
+
 class Dog {
   final int id;
   final String name;
-  final String imageUrl;
+  final BreedImage imageUrl;
   final String breed;
 
   Dog({
@@ -13,10 +15,10 @@ class Dog {
 
   factory Dog.fromMap(Map<String, dynamic> map) {
     return Dog(
-      id: map['id'] ?? 0,
-      name: map['name'] ?? '',
-      imageUrl: map['imageUrl'] ?? '',
-      breed: map['breed'] ?? '',
+      id: map['id'],
+      name: map['name'],
+      imageUrl: map['imageUrl'],
+      breed: map['breed'],
     );
   }
 
