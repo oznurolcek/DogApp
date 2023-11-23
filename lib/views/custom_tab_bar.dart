@@ -26,13 +26,12 @@ class _CustomTabBarState extends State<CustomTabBar> {
 
   Widget _buildTabBar() {
     return ClipPath(
-      clipper: MyCustomClipper(),
+      clipper: CustomTrapezoidClipper(),
       child: Container(
         height: context.screenHeight * 0.15,
         decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+            ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

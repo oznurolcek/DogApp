@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyCustomClipper extends CustomClipper<Path> {
+class CustomTrapezoidClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
