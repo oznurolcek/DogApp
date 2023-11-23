@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: SizedBox(
-        height: context.screenHeight * 0.8,
+        height: context.screenHeight * 0.75,
         width: context.screenWidth,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,11 +76,10 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  // SizedBox(height: context.screenHeight * 0.005),
                   const Divider(thickness: 0.3),
                   SizedBox(height: context.screenHeight * 0.005),
                   const Text("Breed"),
-                  SizedBox(height: context.screenHeight * 0.005),
+                  SizedBox(height: context.screenHeight * 0.02),
                   const Text(
                     "Sub Breed",
                     style: TextStyle(
@@ -115,7 +114,7 @@ class HomePage extends StatelessWidget {
           child: Image.network(
             myDogs[index]["imageUrl"],
             width: context.screenWidth,
-            height: 400,
+            height: 300,
             fit: BoxFit.cover,
           ),
         ),
