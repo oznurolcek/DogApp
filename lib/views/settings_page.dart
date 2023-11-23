@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -14,25 +15,25 @@ class SettingsPage extends StatelessWidget {
         child: ListView(
           children: [
             buildHelpCell(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             buildRateUsCell(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             buildShareCell(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             buildTermsCell(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             buildPrivacyPolicyCell(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             const Divider(thickness: 0.3),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             buildVersionCell(context),
           ],
         ),
@@ -45,7 +46,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.info_outline),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Help",
             style: TextStyle(fontSize: 16),
@@ -66,7 +67,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.star_border_rounded),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Rate Us",
             style: TextStyle(fontSize: 16),
@@ -87,7 +88,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.ios_share_outlined),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Share with Friends",
             style: TextStyle(fontSize: 16),
@@ -108,7 +109,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.receipt_long_outlined),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Terms of Use",
             style: TextStyle(fontSize: 16),
@@ -129,7 +130,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.verified_user_outlined),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           const Text(
             "Privacy Policy",
             style: TextStyle(fontSize: 16),
@@ -150,7 +151,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           const Icon(Icons.account_tree_outlined),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+          SizedBox(width: context.screenWidth * 0.02),
           Text(
             Platform.isIOS ? "OS Version" : "Android Version",
             style: const TextStyle(fontSize: 16),

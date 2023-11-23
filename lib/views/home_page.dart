@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.5,
+            maxCrossAxisExtent: context.screenWidth * 0.5,
             childAspectRatio: 1,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
@@ -56,8 +57,8 @@ class HomePage extends StatelessWidget {
                     bottom: 0.0,
                     left: 0.0,
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: context.screenWidth * 0.2,
+                      height: context.screenHeight * 0.05,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(8.0),
@@ -99,13 +100,13 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.8,
-        width: MediaQuery.of(context).size.width,
+        height: context.screenHeight * 0.8,
+        width: context.screenWidth,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSheetImage(index, context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: context.screenHeight * 0.01),
             Expanded(
               child: Column(
                 children: [
@@ -116,11 +117,11 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  // SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  // SizedBox(height: context.screenHeight * 0.005),
                   const Divider(thickness: 0.3),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  SizedBox(height: context.screenHeight * 0.005),
                   const Text("Breed"),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  SizedBox(height: context.screenHeight * 0.005),
                   const Text(
                     "Sub Breed",
                     style: TextStyle(
@@ -128,11 +129,11 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  SizedBox(height: context.screenHeight* 0.005),
                   const Divider(thickness: 0.3),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  SizedBox(height: context.screenHeight * 0.005),
                   const Text("Sub Breed 1"),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  SizedBox(height: context.screenHeight * 0.005),
                   const Text("Sub Breed 2"),
                 ],
               ),
@@ -154,7 +155,7 @@ class HomePage extends StatelessWidget {
           ),
           child: Image.network(
             myDogs[index]["imageUrl"],
-            width: MediaQuery.of(context).size.width,
+            width:context.screenWidth,
             height: 400,
             fit: BoxFit.cover,
           ),
@@ -184,8 +185,8 @@ class HomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.7,
-        height: MediaQuery.of(context).size.height * 0.07,
+        width: context.screenWidth * 0.7,
+        height: context.screenHeight * 0.07,
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
