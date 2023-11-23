@@ -11,7 +11,9 @@ class ImageConstants {
   String get termsIcon => toSvg("ic_terms");
   String get privacyIcon => toSvg("ic_privacy");
   String get versionIcon => toSvg("ic_version");
+  String get selectedHomeIcon => toSvg("ic_selected_home");
   String get homeIcon => toSvg("ic_home");
+  String get selectedSettingsIcon => toSvg("ic_selected_settings");
   String get settingsIcon => toSvg("ic_settings");
 
   //png

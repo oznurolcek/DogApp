@@ -1,10 +1,12 @@
 import 'package:dog_app/core/components/custom_clipper.dart';
+import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/core/init/navigation/navigation_service.dart';
 import 'package:dog_app/views/home_page.dart';
 import 'package:dog_app/views/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomTabBar extends StatefulWidget {
   const CustomTabBar({super.key});
@@ -43,16 +45,8 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 });
               },
               icon: pageIndex == 0
-                  ? const Icon(
-                      Icons.home_filled,
-                      color: Colors.blue,
-                      size: 35,
-                    )
-                  : const Icon(
-                      Icons.home_outlined,
-                      color: Colors.black,
-                      size: 35,
-                    ),
+                  ? SvgPicture.asset(ImageConstants.instance.selectedHomeIcon)
+                  : SvgPicture.asset(ImageConstants.instance.homeIcon)
             ),
             const VerticalDivider(width: 0, thickness: 0.8, indent: 30, endIndent: 50,),
             IconButton(
@@ -61,16 +55,8 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 NavigationService.instance.navigateToPage(NavigationConstants.SETTINGS_VIEW, null);
               },
               icon: pageIndex == 1
-                  ? const Icon(
-                      Icons.settings,
-                      color: Colors.blue,
-                      size: 35,
-                    )
-                  : const Icon(
-                      Icons.settings_outlined,
-                      color: Colors.black,
-                      size: 35,
-                    ),
+                  ? SvgPicture.asset(ImageConstants.instance.selectedSettingsIcon)
+                  : SvgPicture.asset(ImageConstants.instance.settingsIcon)
             )
           ],
         ),
