@@ -48,7 +48,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.helpIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Help",
             style: TextStyle(fontSize: 16),
@@ -69,7 +69,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.rateUsIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Rate Us",
             style: TextStyle(fontSize: 16),
@@ -90,7 +90,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.shareIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Share with Friends",
             style: TextStyle(fontSize: 16),
@@ -111,7 +111,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.termsIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Terms of Use",
             style: TextStyle(fontSize: 16),
@@ -132,7 +132,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.privacyIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Privacy Policy",
             style: TextStyle(fontSize: 16),
@@ -153,7 +153,7 @@ class SettingsPage extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(ImageConstants.instance.versionIcon),
-          SizedBox(width: context.screenWidth * 0.02),
+          SizedBox(width: context.screenWidth * 0.03),
           Text(
             Platform.isIOS ? "OS Version" : "Android Version",
             style: const TextStyle(fontSize: 16),
