@@ -10,7 +10,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(24.0),
@@ -51,7 +50,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Help",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Icon(
@@ -72,7 +71,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Rate Us",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Icon(
@@ -93,7 +92,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Share with Friends",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Icon(
@@ -114,7 +113,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Terms of Use",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Icon(
@@ -135,7 +134,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           const Text(
             "Privacy Policy",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Icon(
@@ -156,7 +155,7 @@ class SettingsPage extends StatelessWidget {
           SizedBox(width: context.screenWidth * 0.03),
           Text(
             Platform.isIOS ? "OS Version" : "Android Version",
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Text(

@@ -54,7 +54,12 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 Text(
                   "Home",
                   style: TextStyle(
-                      color: pageIndex == 0 ? const Color(0xFF0054d3) : Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+                      color: pageIndex == 0
+                          ? const Color(0xFF0054d3)
+                          : Colors.black,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'GalanoGrotesque'),
                 )
               ],
             ),
@@ -78,8 +83,16 @@ class _CustomTabBarState extends State<CustomTabBar> {
                             ImageConstants.instance.selectedSettingsIcon)
                         : SvgPicture.asset(
                             ImageConstants.instance.settingsIcon)),
-                Text("Settings", style: TextStyle(
-                      color: pageIndex == 1 ? const Color(0xFF0054d3) : Colors.black, fontSize: 12, fontWeight: FontWeight.bold),)
+                Text(
+                  "Settings",
+                  style: TextStyle(
+                      color: pageIndex == 1
+                          ? const Color(0xFF0054d3)
+                          : Colors.black,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'GalanoGrotesque'),
+                )
               ],
             )
           ],

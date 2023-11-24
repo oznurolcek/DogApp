@@ -40,7 +40,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("breeDogs"),
+        title: const Text(
+          "breeDogs",
+          style: TextStyle(fontFamily: 'GalanoGrotesque'),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -96,7 +99,8 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                         color: Color(0xFF0054d3),
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'GalanoGrotesque'),
                   ),
                   const Divider(thickness: 0.3),
                   SizedBox(height: context.screenHeight * 0.005),
@@ -107,14 +111,14 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                         color: Color(0xFF0054d3),
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold, fontFamily: 'GalanoGrotesque'),
                   ),
                   SizedBox(height: context.screenHeight * 0.005),
                   const Divider(thickness: 0.3),
                   SizedBox(height: context.screenHeight * 0.005),
-                  const Text("Sub Breed 1"),
+                  const Text("Sub Breed 1", style: TextStyle(fontFamily: 'GalanoGrotesque'),),
                   SizedBox(height: context.screenHeight * 0.005),
-                  const Text("Sub Breed 2"),
+                  const Text("Sub Breed 2", style: TextStyle(fontFamily: 'GalanoGrotesque'),),
                 ],
               ),
             ),
@@ -172,7 +176,8 @@ class _HomePageState extends State<HomePage> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return RandomSheetDialog(imageURL: myDogs[index].imageUrl.message);
+                  return RandomSheetDialog(
+                      imageURL: myDogs[index].imageUrl.message);
                 });
           },
           style: ElevatedButton.styleFrom(
@@ -183,7 +188,7 @@ class _HomePageState extends State<HomePage> {
           ),
           child: const Text(
             "Generate",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontFamily: 'GalanoGrotesque'),
           ),
         ),
       ),
@@ -231,6 +236,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
+                  fontFamily: 'GalanoGrotesque'
                 ),
               ),
             ),
