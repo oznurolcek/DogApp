@@ -1,15 +1,15 @@
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
-class SearcBar extends StatelessWidget {
-  const SearcBar({
+class SearchBarField extends StatelessWidget {
+  const SearchBarField({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.screenHeight * 0.1,
+      height: context.screenHeight * 0.08,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
