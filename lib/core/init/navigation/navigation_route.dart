@@ -14,7 +14,7 @@ class NavigationRoute {
       case NavigationConstants.DEFAULT_VIEW:
         return normalNavigate(const CustomTabBar());
       case NavigationConstants.HOME_VIEW:
-        return normalNavigate(HomePage());
+        return normalNavigate(const HomePage());
       case NavigationConstants.SETTINGS_VIEW:
         return normalNavigate(const SettingsPage());
       default:

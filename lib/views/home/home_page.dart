@@ -7,7 +7,7 @@ import 'package:dog_app/views/home/components/random_sheet_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
         myDogs = dogsData.map((data) => Dog.fromMap(data)).toList();
       });
     } catch (e) {
+      // ignore: avoid_print
       print('Error loading dogs: $e');
     }
   }
@@ -65,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return _showBottomSheet(context, index);
                 });
+            // ignore: avoid_print
             print(myDogs[index].imageUrl);
           },
           child: _buildDogImage(index, context),
@@ -92,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                   const Text(
                     "Breed",
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF0054d3),
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
@@ -103,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                   const Text(
                     "Sub Breed",
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF0054d3),
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
@@ -174,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 });
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
+            backgroundColor: const Color(0xFF0054d3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),

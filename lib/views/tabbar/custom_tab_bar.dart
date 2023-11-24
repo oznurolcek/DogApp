@@ -17,7 +17,7 @@ class CustomTabBar extends StatefulWidget {
 
 class _CustomTabBarState extends State<CustomTabBar> {
   int pageIndex = 0;
-  final pages = [HomePage(), const SettingsPage()];
+  final pages = [const HomePage(), const SettingsPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,31 +32,55 @@ class _CustomTabBarState extends State<CustomTabBar> {
       child: Container(
         height: context.screenHeight * 0.15,
         decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            ),
+          color: Colors.grey.shade100,
+        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 0;
-                });
-              },
-              icon: pageIndex == 0
-                  ? SvgPicture.asset(ImageConstants.instance.selectedHomeIcon)
-                  : SvgPicture.asset(ImageConstants.instance.homeIcon)
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                    enableFeedback: false,
+                    onPressed: () {
+                      setState(() {
+                        pageIndex = 0;
+                      });
+                    },
+                    icon: pageIndex == 0
+                        ? SvgPicture.asset(
+                            ImageConstants.instance.selectedHomeIcon)
+                        : SvgPicture.asset(ImageConstants.instance.homeIcon)),
+                Text(
+                  "Home",
+                  style: TextStyle(
+                      color: pageIndex == 0 ? const Color(0xFF0054d3) : Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+                )
+              ],
             ),
-            const VerticalDivider(width: 0, thickness: 0.8, indent: 30, endIndent: 50,),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                NavigationService.instance.navigateToPage(NavigationConstants.SETTINGS_VIEW, null);
-              },
-              icon: pageIndex == 1
-                  ? SvgPicture.asset(ImageConstants.instance.selectedSettingsIcon)
-                  : SvgPicture.asset(ImageConstants.instance.settingsIcon)
+            const VerticalDivider(
+              width: 0,
+              thickness: 0.8,
+              indent: 40,
+              endIndent: 50,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                    enableFeedback: false,
+                    onPressed: () {
+                      NavigationService.instance.navigateToPage(
+                          NavigationConstants.SETTINGS_VIEW, null);
+                    },
+                    icon: pageIndex == 1
+                        ? SvgPicture.asset(
+                            ImageConstants.instance.selectedSettingsIcon)
+                        : SvgPicture.asset(
+                            ImageConstants.instance.settingsIcon)),
+                Text("Settings", style: TextStyle(
+                      color: pageIndex == 1 ? const Color(0xFF0054d3) : Colors.black, fontSize: 12, fontWeight: FontWeight.bold),)
+              ],
             )
           ],
         ),
