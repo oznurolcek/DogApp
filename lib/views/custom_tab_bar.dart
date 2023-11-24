@@ -3,7 +3,7 @@ import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/core/init/navigation/navigation_service.dart';
-import 'package:dog_app/views/home_page.dart';
+import 'package:dog_app/views/home/home_page.dart';
 import 'package:dog_app/views/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

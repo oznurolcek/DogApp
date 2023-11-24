@@ -1,6 +1,6 @@
 import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
 import 'package:dog_app/views/custom_tab_bar.dart';
-import 'package:dog_app/views/home_page.dart';
+import 'package:dog_app/views/home/home_page.dart';
 import 'package:dog_app/views/settings_page.dart';
 import 'package:flutter/material.dart';
 

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/models/dog.dart';
 import 'package:dog_app/service/dog_service.dart';
+import 'package:dog_app/views/home/components/random_sheet_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,15 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final DogApiService _dogApiService = DogApiService();
   late List<Dog> myDogs;
-  // final List<Map> myDogs = List.generate(
-  //     100,
-  //     (index) => {
-  //           "id": index,
-  //           "name": "Dog $index",
-  //           "imageUrl":
-  //               "https://thumbs.dreamstime.com/b/golden-retriever-dog-21668976.jpg",
-  //           "breed": "Breed $index"
-  //         }).toList();
 
   @override
   void initState() {
@@ -73,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return _showBottomSheet(context, index);
                 });
-                print(myDogs[index].imageUrl);
+            print(myDogs[index].imageUrl);
           },
           child: _buildDogImage(index, context),
         );
@@ -175,7 +167,11 @@ class _HomePageState extends State<HomePage> {
         height: context.screenHeight * 0.07,
         child: ElevatedButton(
           onPressed: () {
-            _buildRandomSheet(context, index);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return RandomSheetDialog(imageURL: myDogs[index].imageUrl.message);
+                });
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
@@ -190,32 +186,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  Future<dynamic> _buildRandomSheet(BuildContext context, int index) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0)),
-            child: SizedBox(
-              height: context.screenHeight * 0.3,
-              width: context.screenWidth * 0.3,
-              child: Column(
-                children: [
-                  Image.network(
-                    myDogs[index].imageUrl.message,
-                    width: context.screenWidth,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
-                ],
-              ),
-            ),
-          );
-        });
   }
 
   Stack _buildDogImage(int index, BuildContext context) {
