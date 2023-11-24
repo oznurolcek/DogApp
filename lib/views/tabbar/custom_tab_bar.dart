@@ -1,6 +1,5 @@
 import 'package:dog_app/core/components/custom_clipper.dart';
 import 'package:dog_app/core/constants/image/image_constants.dart';
-import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/core/init/navigation/navigation_service.dart';
 import 'package:dog_app/views/home/home_page.dart';
