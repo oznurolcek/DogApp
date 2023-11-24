@@ -102,8 +102,10 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 IconButton(
                     enableFeedback: false,
                     onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                          NavigationConstants.SETTINGS_VIEW, null);
+                      NavigationService.instance.presentModally(
+                    context,
+                    SettingsPage(),
+                  );
                     },
                     icon: pageIndex == 1
                         ? SvgPicture.asset(

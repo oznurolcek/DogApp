@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             topRight: Radius.circular(12.0),
           ),
           child: Image.network(
-            myDogs[index].imageUrl.message,
+            "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
             width: context.screenWidth,
             height: 300,
             fit: BoxFit.cover,
@@ -201,8 +201,8 @@ class _HomePageState extends State<HomePage> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            image: DecorationImage(
-              image: NetworkImage(myDogs[index].imageUrl.message),
+            image: const DecorationImage(
+              image: NetworkImage("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*"),
               fit: BoxFit.cover,
             ),
           ),
@@ -231,7 +231,7 @@ class _HomePageState extends State<HomePage> {
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Center(
               child: Text(
-                myDogs[index].breed,
+                "${myDogs[index].breed[0].toUpperCase()}${myDogs[index].breed.substring(1)}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
