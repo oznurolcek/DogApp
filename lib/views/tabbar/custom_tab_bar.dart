@@ -31,7 +31,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
             bottom: context.screenHeight * 0.16,
             left: context.screenWidth * 0.06,
             right: context.screenWidth * 0.06,
-            child: SearchBarField(),
+            child: const SearchBarField(),
           ),
           Positioned(
             bottom: 0,

@@ -153,14 +153,15 @@ class SettingsPage extends StatelessWidget {
         children: [
           SvgPicture.asset(ImageConstants.instance.versionIcon),
           SizedBox(width: context.screenWidth * 0.03),
-          Text(
-            Platform.isIOS ? "OS Version" : "Android Version",
-            style: const TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
+          const Text(
+            "OS Version",
+            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
           ),
           const Spacer(),
           Text(
             Platform.operatingSystemVersion,
-            style: TextStyle(color: Colors.grey.shade400),
+            style: TextStyle(
+                color: Colors.grey.shade400, fontFamily: 'GalanoGrotesque'),
           )
         ],
       ),
