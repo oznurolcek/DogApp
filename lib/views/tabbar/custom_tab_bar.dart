@@ -5,6 +5,7 @@ import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/core/init/navigation/navigation_service.dart';
 import 'package:dog_app/views/home/home_page.dart';
 import 'package:dog_app/views/settings/settings_page.dart';
+import 'package:dog_app/views/tabbar/components/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,8 +22,34 @@ class _CustomTabBarState extends State<CustomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[pageIndex],
-      bottomNavigationBar: _buildTabBar(),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: pages[pageIndex],
+          ),
+          Positioned(
+            bottom: context.screenHeight * 0.16,
+            left: context.screenWidth * 0.06,
+            right: context.screenWidth * 0.06,
+            child: SearcBar(),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: context.screenHeight * 0.15,
+              color: Colors.transparent,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _buildTabBar(),
+          ),
+        ],
+      ),
     );
   }
 
