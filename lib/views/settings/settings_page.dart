@@ -12,7 +12,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String osVersion = "Bilinmiyor";
+  String osVersion = "Unknown";
 
   @override
   void initState() {
@@ -193,13 +193,13 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class OSVersion {
-  static const platform = MethodChannel('com.example.dog_app/os_version');
+  static const platform = MethodChannel("com.example.dog_app/os_version");
 
   static Future<String> getOSVersion() async {
     try {
-      return await platform.invokeMethod('getOSVersion');
+      return await platform.invokeMethod("getOSVersion");
     } on PlatformException catch (e) {
-      return 'Platform version not available: $e';
+      return "Platform version not available: $e";
     }
   }
 }

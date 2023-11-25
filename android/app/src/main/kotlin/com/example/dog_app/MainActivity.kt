@@ -15,7 +15,7 @@ class MainActivity: FlutterActivity() {
         return try {
             "Android " + Build.VERSION.RELEASE
         } catch (e: Exception) {
-            "Bilinmiyor"
+            "Unknown"
         }
     }
 
