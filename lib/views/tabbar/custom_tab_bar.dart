@@ -26,12 +26,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
           Positioned.fill(
             child: pages[pageIndex],
           ),
-          Positioned(
-            bottom: context.screenHeight * 0.16,
-            left: context.screenWidth * 0.06,
-            right: context.screenWidth * 0.06,
-            child: const SearchBarField(),
-          ),
+          const SearchBarField(),
           Positioned(
             bottom: 0,
             left: 0,
@@ -102,9 +97,9 @@ class _CustomTabBarState extends State<CustomTabBar> {
                     enableFeedback: false,
                     onPressed: () {
                       NavigationService.instance.presentModally(
-                    context,
-                    SettingsPage(),
-                  );
+                        context,
+                        const SettingsPage(),
+                      );
                     },
                     icon: pageIndex == 1
                         ? SvgPicture.asset(
@@ -129,5 +124,3 @@ class _CustomTabBarState extends State<CustomTabBar> {
     );
   }
 }
-
-
