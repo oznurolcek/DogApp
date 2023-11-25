@@ -1,13 +1,36 @@
-import 'dart:io';
-
 import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  String osVersion = "Bilinmiyor";
+
+  @override
+  void initState() {
+    super.initState();
+    getOSVersion();
+  }
+
+  Future<void> getOSVersion() async {
+    try {
+      String version = await OSVersion.getOSVersion();
+      setState(() {
+        osVersion = version;
+      });
+    } on PlatformException catch (e) {
+      // ignore: avoid_print
+      print("Hata: $e");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,12 +182,24 @@ class SettingsPage extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            Platform.operatingSystemVersion,
+            osVersion,
             style: TextStyle(
                 color: Colors.grey.shade400, fontFamily: 'GalanoGrotesque'),
           )
         ],
       ),
     );
+  }
+}
+
+class OSVersion {
+  static const platform = MethodChannel('com.example.dog_app/os_version');
+
+  static Future<String> getOSVersion() async {
+    try {
+      return await platform.invokeMethod('getOSVersion');
+    } on PlatformException catch (e) {
+      return 'Platform version not available: $e';
+    }
   }
 }
