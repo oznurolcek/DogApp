@@ -1,4 +1,5 @@
 import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
+import 'package:dog_app/views/splash/splash_screen.dart';
 import 'package:dog_app/views/tabbar/custom_tab_bar.dart';
 import 'package:dog_app/views/home/home_page.dart';
 import 'package:dog_app/views/settings/settings_page.dart';
@@ -12,11 +13,13 @@ class NavigationRoute {
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
       case NavigationConstants.DEFAULT_VIEW:
-        return normalNavigate(const CustomTabBar());
+        return normalNavigate(const SplashScreen());
       case NavigationConstants.HOME_VIEW:
-        return normalNavigate(const HomePage());
+        return normalNavigate(const HomePage(dogList: [], dogsImageUrls: {},));
       case NavigationConstants.SETTINGS_VIEW:
         return normalNavigate(const SettingsPage());
+      case NavigationConstants.CUSTOM_TAB_BAR:
+        return normalNavigate(const CustomTabBar(dogList: [], dogsImageUrls: {},));
       default:
         return MaterialPageRoute(
           builder: (context) => const Center(child: Text("Not Found Page")),

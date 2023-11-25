@@ -3,38 +3,21 @@ import 'dart:ui';
 import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/models/dog.dart';
-import 'package:dog_app/service/dog_service.dart';
 import 'package:dog_app/views/home/components/random_sheet_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final List<Dog> dogList;
+  final Map<String, String> dogsImageUrls;
+
+  const HomePage(
+      {super.key, required this.dogList, required this.dogsImageUrls});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final DogApiService _dogApiService = DogApiService();
-  List<Dog> dogList = [];
-
-  @override
-  void initState() {
-    _loadDogs();
-    super.initState();
-  }
-
-  Future<void> _loadDogs() async {
-    try {
-      final dogsData = await _dogApiService.getDogList();
-      setState(() {
-        dogList = dogsData;
-      });
-    } catch (e) {
-      // ignore: avoid_print
-      print('Error loading dogs: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,81 +43,70 @@ class _HomePageState extends State<HomePage> {
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
       ),
-      itemCount: dogList.length,
+      itemCount: widget.dogList.length,
       itemBuilder: (_, index) {
         //TODO: card
-        return FutureBuilder<String>(
-            future: _dogApiService.getRandomBreedImage(dogList[index].breed),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text("Error Here");
-              }
-              if (snapshot.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return _showBottomSheet(
-                            context, dogList[index], snapshot.data!);
-                      });
-                },
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, err, _) {
-                          return Image.asset(
-                              ImageConstants.instance.imageNotFound,
-                              fit: BoxFit.cover);
-                        },
-                      ),
-                    ),
-                    //buildBreedText
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      child: Container(
-                        width: context.screenWidth * 0.2,
-                        height: context.screenHeight * 0.05,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(8.0),
-                              bottomLeft: Radius.circular(8.0)),
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(8.0),
-                              bottomLeft: Radius.circular(8.0)),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                            child: Center(
-                              child: Text(
-                                "${dogList[index].breed[0].toUpperCase()}${dogList[index].breed.substring(1)}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'GalanoGrotesque'),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+        final dog = widget.dogList[index];
+        final dogImage = widget.dogsImageUrls[dog.breed]!;
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return _showBottomSheet(
+                      context, dog, dogImage);
+                });
+          },
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network(
+                  dogImage,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, err, _) {
+                    return Image.asset(ImageConstants.instance.imageNotFound,
+                        fit: BoxFit.cover);
+                  },
                 ),
-              );
-            });
+              ),
+              //buildBreedText
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                child: Container(
+                  width: context.screenWidth * 0.2,
+                  height: context.screenHeight * 0.05,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(8.0),
+                        bottomLeft: Radius.circular(8.0)),
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(8.0),
+                        bottomLeft: Radius.circular(8.0)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                      child: Center(
+                        child: Text(
+                          "${widget.dogList[index].breed[0].toUpperCase()}${widget.dogList[index].breed.substring(1)}",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'GalanoGrotesque'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -165,7 +137,8 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.cover,
                     errorBuilder: (context, err, _) {
                       return Image.asset(
-                              ImageConstants.instance.imageNotFound,);
+                        ImageConstants.instance.imageNotFound,
+                      );
                     },
                   ),
                 ),
