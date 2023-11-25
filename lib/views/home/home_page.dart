@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/core/extensions/context_extension.dart';
 import 'package:dog_app/models/dog.dart';
 import 'package:dog_app/service/dog_service.dart';
@@ -15,20 +16,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final DogApiService _dogApiService = DogApiService();
-  late List<Dog> myDogs;
+  List<Dog> dogList = [];
 
   @override
   void initState() {
-    super.initState();
-    myDogs = [];
     _loadDogs();
+    super.initState();
   }
 
   Future<void> _loadDogs() async {
     try {
-      List<Map<String, dynamic>> dogsData = await _dogApiService.getDogList();
+      final dogsData = await _dogApiService.getDogList();
       setState(() {
-        myDogs = dogsData.map((data) => Dog.fromMap(data)).toList();
+        dogList = dogsData;
       });
     } catch (e) {
       // ignore: avoid_print
@@ -56,29 +56,90 @@ class _HomePageState extends State<HomePage> {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: context.screenWidth * 0.5,
-        childAspectRatio: 1,
+        childAspectRatio: 1.1,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
       ),
-      itemCount: myDogs.length,
+      itemCount: dogList.length,
       itemBuilder: (_, index) {
-        return GestureDetector(
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return _showBottomSheet(context, index);
-                });
-            // ignore: avoid_print
-            print(myDogs[index].imageUrl);
-          },
-          child: _buildDogImage(index, context),
-        );
+        //TODO: card
+        return FutureBuilder<String>(
+            future: _dogApiService.getRandomBreedImage(dogList[index].breed),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text("Error Here");
+              }
+              if (snapshot.data == null) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return _showBottomSheet(
+                            context, dogList[index], snapshot.data!);
+                      });
+                },
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, err, _) {
+                          return Image.asset(
+                              ImageConstants.instance.imageNotFound,
+                              fit: BoxFit.cover);
+                        },
+                      ),
+                    ),
+                    //buildBreedText
+                    Positioned(
+                      bottom: 0.0,
+                      left: 0.0,
+                      child: Container(
+                        width: context.screenWidth * 0.2,
+                        height: context.screenHeight * 0.05,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(8.0),
+                              bottomLeft: Radius.circular(8.0)),
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(8.0),
+                              bottomLeft: Radius.circular(8.0)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                            child: Center(
+                              child: Text(
+                                "${dogList[index].breed[0].toUpperCase()}${dogList[index].breed.substring(1)}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'GalanoGrotesque'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
       },
     );
   }
 
-  Dialog _showBottomSheet(BuildContext context, int index) {
+  Dialog _showBottomSheet(BuildContext context, Dog dog, String imageUrl) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -89,158 +150,114 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSheetImage(index, context),
+            //buildSheetImage
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12.0),
+                    topRight: Radius.circular(12.0),
+                  ),
+                  child: Image.network(
+                    imageUrl,
+                    width: context.screenWidth,
+                    height: 300,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, err, _) {
+                      return Image.asset(
+                              ImageConstants.instance.imageNotFound,);
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 14,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: context.screenHeight * 0.01),
-            Expanded(
-              child: Column(
-                children: [
+            Column(
+              children: [
+                const Text(
+                  "Breed",
+                  style: TextStyle(
+                      color: Color(0xFF0054d3),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'GalanoGrotesque'),
+                ),
+                const Divider(thickness: 0.3),
+                SizedBox(height: context.screenHeight * 0.005),
+                Text("${dog.breed[0].toUpperCase()}${dog.breed.substring(1)}"),
+                SizedBox(height: context.screenHeight * 0.02),
+                const Text(
+                  "Sub Breed",
+                  style: TextStyle(
+                      color: Color(0xFF0054d3),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'GalanoGrotesque'),
+                ),
+                SizedBox(height: context.screenHeight * 0.005),
+                const Divider(thickness: 0.3),
+                SizedBox(height: context.screenHeight * 0.005),
+                if (dog.subBreed.isNotEmpty)
+                  for (var subBreed in dog.subBreed)
+                    Text(
+                      "${subBreed[0].toUpperCase()}${subBreed.substring(1)}",
+                      style: const TextStyle(fontFamily: 'GalanoGrotesque'),
+                    )
+                else
                   const Text(
-                    "Breed",
-                    style: TextStyle(
-                        color: Color(0xFF0054d3),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'GalanoGrotesque'),
+                    "No Sub Breed",
+                    style: TextStyle(fontFamily: 'GalanoGrotesque'),
                   ),
-                  const Divider(thickness: 0.3),
-                  SizedBox(height: context.screenHeight * 0.005),
-                  const Text("Breed"),
-                  SizedBox(height: context.screenHeight * 0.02),
-                  const Text(
-                    "Sub Breed",
-                    style: TextStyle(
-                        color: Color(0xFF0054d3),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold, fontFamily: 'GalanoGrotesque'),
+                SizedBox(height: context.screenHeight * 0.005),
+              ],
+            ),
+            const Spacer(),
+            //buildGenerateButton
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SizedBox(
+                width: context.screenWidth * 0.7,
+                height: context.screenHeight * 0.07,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return RandomSheetDialog(dog: dog);
+                        });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0054d3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
-                  SizedBox(height: context.screenHeight * 0.005),
-                  const Divider(thickness: 0.3),
-                  SizedBox(height: context.screenHeight * 0.005),
-                  const Text("Sub Breed 1", style: TextStyle(fontFamily: 'GalanoGrotesque'),),
-                  SizedBox(height: context.screenHeight * 0.005),
-                  const Text("Sub Breed 2", style: TextStyle(fontFamily: 'GalanoGrotesque'),),
-                ],
-              ),
-            ),
-            _buildGenerateButton(context, index),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Stack _buildSheetImage(int index, BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(12.0),
-            topRight: Radius.circular(12.0),
-          ),
-          child: Image.network(
-            "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
-            width: context.screenWidth,
-            height: 300,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Positioned(
-          top: 12,
-          right: 12,
-          child: CircleAvatar(
-            radius: 15,
-            backgroundColor: Colors.white,
-            child: IconButton(
-              icon: const Icon(
-                Icons.close,
-                size: 14,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Padding _buildGenerateButton(BuildContext context, int index) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        width: context.screenWidth * 0.7,
-        height: context.screenHeight * 0.07,
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return RandomSheetDialog(
-                      imageURL: myDogs[index].imageUrl.message);
-                });
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF0054d3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          child: const Text(
-            "Generate",
-            style: TextStyle(color: Colors.white, fontFamily: 'GalanoGrotesque'),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Stack _buildDogImage(int index, BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            image: const DecorationImage(
-              image: NetworkImage("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        _buildBreedText(context, index)
-      ],
-    );
-  }
-
-  Positioned _buildBreedText(BuildContext context, int index) {
-    return Positioned(
-      bottom: 0.0,
-      left: 0.0,
-      child: Container(
-        width: context.screenWidth * 0.2,
-        height: context.screenHeight * 0.05,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0)),
-          color: Colors.black.withOpacity(0.3),
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0)),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: Center(
-              child: Text(
-                "${myDogs[index].breed[0].toUpperCase()}${myDogs[index].breed.substring(1)}",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'GalanoGrotesque'
+                  child: const Text(
+                    "Generate",
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: 'GalanoGrotesque'),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -19,6 +19,10 @@ class ImageConstants {
   //png
   String get splashIcon => toPng("ic_splash");
 
+  //jpg
+  String get imageNotFound => toJpg("ic_image_not_found");
+
   String toSvg(String name) => "assets/image/$name.svg";
   String toPng(String name) => "assets/image/$name.png";
+  String toJpg(String name) => "assets/image/$name.jpg";
 }
