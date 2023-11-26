@@ -88,23 +88,20 @@ class _SearchBarFieldState extends State<SearchBarField> {
                   ),
                 )
               : _textEditingController.text.isNotEmpty
-                  ? Text(
-                      _textEditingController.text,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'GalanoGrotesque',
-                        fontSize: 16,
-                      ),
-                    )
-                  : Text(
-                      "Search",
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontFamily: 'GalanoGrotesque',
-                        fontSize: 16,
-                      ),
-                    ),
+                  ? _buildText(_textEditingController.text, Colors.black)
+                  : _buildText("Search", Colors.grey.shade600),
         ),
+      ),
+    );
+  }
+
+  Text _buildText(String text, Color color) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontFamily: 'GalanoGrotesque',
+        fontSize: 16,
       ),
     );
   }
