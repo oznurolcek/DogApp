@@ -44,6 +44,15 @@ class _AppWidgetState extends State<AppWidget> {
             bottom: 0,
             left: 0,
             right: 0,
+            child: Container(
+              height: context.screenHeight * 0.15,
+              color: Colors.transparent,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: _buildTabBar(),
           ),
         ],
@@ -62,31 +71,11 @@ class _AppWidgetState extends State<AppWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    enableFeedback: false,
-                    onPressed: () {
-                      setState(() {
-                        pageIndex = 0;
-                      });
-                    },
-                    icon: pageIndex == 0
-                        ? SvgPicture.asset(
-                            ImageConstants.instance.selectedHomeIcon)
-                        : SvgPicture.asset(ImageConstants.instance.homeIcon)),
-                Text(
-                  "Home",
-                  style: TextStyle(
-                      color: pageIndex == 0
-                          ? const Color(0xFF0054d3)
-                          : Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'GalanoGrotesque'),
-                )
-              ],
+            _buildTabItem(
+              index: 0,
+              icon: ImageConstants.instance.homeIcon,
+              selectedIcon: ImageConstants.instance.selectedHomeIcon,
+              label: "Home",
             ),
             const VerticalDivider(
               width: 0,
@@ -94,37 +83,55 @@ class _AppWidgetState extends State<AppWidget> {
               indent: 40,
               endIndent: 50,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    enableFeedback: false,
-                    onPressed: () {
-                      NavigationService.instance.presentModally(
-                        context,
-                        const SettingsPage(),
-                      );
-                    },
-                    icon: pageIndex == 1
-                        ? SvgPicture.asset(
-                            ImageConstants.instance.selectedSettingsIcon)
-                        : SvgPicture.asset(
-                            ImageConstants.instance.settingsIcon)),
-                Text(
-                  "Settings",
-                  style: TextStyle(
-                      color: pageIndex == 1
-                          ? const Color(0xFF0054d3)
-                          : Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'GalanoGrotesque'),
-                )
-              ],
-            )
+            _buildTabItem(
+              index: 1,
+              icon: ImageConstants.instance.settingsIcon,
+              selectedIcon: ImageConstants.instance.selectedSettingsIcon,
+              label: "Settings",
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTabItem({
+    required int index,
+    required String icon,
+    required String selectedIcon,
+    required String label,
+  }) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          enableFeedback: false,
+          onPressed: () {
+            if (index == 0) {
+              setState(() {
+                pageIndex = index;
+              });
+            } else {
+              NavigationService.instance.presentModally(
+                context,
+                const SettingsPage(),
+              );
+            }
+          },
+          icon: pageIndex == index
+              ? SvgPicture.asset(selectedIcon)
+              : SvgPicture.asset(icon),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            color: pageIndex == index ? const Color(0xFF0054d3) : Colors.black,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'GalanoGrotesque',
+          ),
+        ),
+      ],
     );
   }
 }

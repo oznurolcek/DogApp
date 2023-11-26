@@ -30,22 +30,14 @@ class SplashScreen extends StatelessWidget {
               dogList: state.dogList,
               dogsImageUrls: state.dogImageUrls,
             );
-          } else if (state is FailedState) {
-            return Scaffold(
-              body: Center(
-                child: Image.asset(
-                  ImageConstants.instance.splashIcon,
-                ),
+          } else {
+            return Container(
+              color: Colors.white,
+              child: Image.asset(
+                ImageConstants.instance.splashIcon,
               ),
             );
           }
-
-          return Container(
-            color: Colors.white,
-            child: Image.asset(
-                    ImageConstants.instance.splashIcon,
-                  ),
-          );
         },
       ),
     );
