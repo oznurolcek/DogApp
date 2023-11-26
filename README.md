@@ -1,12 +1,16 @@
-# breeDogs 🐶
+# dog_app
 
-breeDogs is a mobile application developed by Flutter, which dog breeds, breed photos are listed and random photos are shown.
+A new Flutter project.
 
-## Features
+## Getting Started
 
-- Listing of breed names and images from API.
-- Listing the images on the home page after they are taken on the splash screen.
-- Displaying the detail page of the selected breed.
-- Displaying random images of the selected breed.
-- Displaying the operating system version on the settings page.
-- Switching between pages with the TabBar.
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
