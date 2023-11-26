@@ -1,6 +1,6 @@
 import 'package:dog_app/core/constants/navigation/navigation_constants.dart';
 import 'package:dog_app/views/splash/splash_screen.dart';
-import 'package:dog_app/views/tabbar/custom_tab_bar.dart';
+import 'package:dog_app/views/appwidget/app_widget.dart';
 import 'package:dog_app/views/home/home_page.dart';
 import 'package:dog_app/views/settings/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class NavigationRoute {
       case NavigationConstants.SETTINGS_VIEW:
         return normalNavigate(const SettingsPage());
       case NavigationConstants.CUSTOM_TAB_BAR:
-        return normalNavigate(const CustomTabBar(dogList: [], dogsImageUrls: {},));
+        return normalNavigate(const AppWidget(dogList: [], dogsImageUrls: {},));
       default:
         return MaterialPageRoute(
           builder: (context) => const Center(child: Text("Not Found Page")),

@@ -1,7 +1,7 @@
 import 'package:dog_app/core/constants/image/image_constants.dart';
 import 'package:dog_app/models/dog.dart';
 import 'package:dog_app/service/dog_service.dart';
-import 'package:dog_app/views/tabbar/custom_tab_bar.dart';
+import 'package:dog_app/views/appwidget/app_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -71,6 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     }
-    return CustomTabBar(dogList: dogList, dogsImageUrls: dogsImageUrls,);
+    return AppWidget(dogList: dogList, dogsImageUrls: dogsImageUrls,);
   }
 }

@@ -9,16 +9,16 @@ import 'package:dog_app/views/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomTabBar extends StatefulWidget {
+class AppWidget extends StatefulWidget {
   final List<Dog> dogList;
   final Map<String, String> dogsImageUrls;
-  const CustomTabBar({super.key, required this.dogList, required this.dogsImageUrls});
+  const AppWidget({super.key, required this.dogList, required this.dogsImageUrls});
 
   @override
-  State<CustomTabBar> createState() => _CustomTabBarState();
+  State<AppWidget> createState() => _AppWidgetState();
 }
 
-class _CustomTabBarState extends State<CustomTabBar> {
+class _AppWidgetState extends State<AppWidget> {
   int pageIndex = 0;
   Widget getScreen() {
     if(pageIndex == 0) {
