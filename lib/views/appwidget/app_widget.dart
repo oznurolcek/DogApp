@@ -12,7 +12,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class AppWidget extends StatefulWidget {
   final List<Dog> dogList;
   final Map<String, String> dogsImageUrls;
-  const AppWidget({super.key, required this.dogList, required this.dogsImageUrls});
+  const AppWidget(
+      {super.key, required this.dogList, required this.dogsImageUrls});
 
   @override
   State<AppWidget> createState() => _AppWidgetState();
@@ -21,8 +22,11 @@ class AppWidget extends StatefulWidget {
 class _AppWidgetState extends State<AppWidget> {
   int pageIndex = 0;
   Widget getScreen() {
-    if(pageIndex == 0) {
-      return HomePage(dogList: widget.dogList, dogsImageUrls: widget.dogsImageUrls,);
+    if (pageIndex == 0) {
+      return HomePage(
+        dogList: widget.dogList,
+        dogsImageUrls: widget.dogsImageUrls,
+      );
     }
     return const SettingsPage();
   }

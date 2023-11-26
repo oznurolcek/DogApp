@@ -31,6 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
       print("Hata: $e");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,26 +39,19 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(24.0),
         child: ListView(
           children: [
-            _buildHelpCell(context),
-            SizedBox(height: context.screenHeight * 0.01),
-            const Divider(thickness: 0.3),
-            SizedBox(height: context.screenHeight * 0.01),
-            _buildRateUsCell(context),
-            SizedBox(height: context.screenHeight * 0.01),
-            const Divider(thickness: 0.3),
-            SizedBox(height: context.screenHeight * 0.01),
-            _buildShareCell(context),
-            SizedBox(height: context.screenHeight * 0.01),
-            const Divider(thickness: 0.3),
-            SizedBox(height: context.screenHeight * 0.01),
-            _buildTermsCell(context),
-            SizedBox(height: context.screenHeight * 0.01),
-            const Divider(thickness: 0.3),
-            SizedBox(height: context.screenHeight * 0.01),
-            _buildPrivacyPolicyCell(context),
-            SizedBox(height: context.screenHeight * 0.01),
-            const Divider(thickness: 0.3),
-            SizedBox(height: context.screenHeight * 0.01),
+            _buildCell(context, ImageConstants.instance.helpIcon, "Help"),
+            _buildDivider(context),
+            _buildCell(context, ImageConstants.instance.rateUsIcon, "Rate Us"),
+            _buildDivider(context),
+            _buildCell(context, ImageConstants.instance.shareIcon,
+                "Share with Friends"),
+            _buildDivider(context),
+            _buildCell(
+                context, ImageConstants.instance.termsIcon, "Terms of Use"),
+            _buildDivider(context),
+            _buildCell(
+                context, ImageConstants.instance.privacyIcon, "Privacy Policy"),
+            _buildDivider(context),
             _buildVersionCell(context),
           ],
         ),
@@ -65,131 +59,55 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  GestureDetector _buildHelpCell(BuildContext context) {
+  GestureDetector _buildCell(BuildContext context, String icon, String label) {
     return GestureDetector(
+      onTap: () {},
       child: Row(
         children: [
-          SvgPicture.asset(ImageConstants.instance.helpIcon),
+          SvgPicture.asset(icon),
           SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "Help",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_outward_rounded,
-            color: Colors.grey.shade400,
-            size: 16,
-          )
-        ],
-      ),
-    );
-  }
-
-  GestureDetector _buildRateUsCell(BuildContext context) {
-    return GestureDetector(
-      child: Row(
-        children: [
-          SvgPicture.asset(ImageConstants.instance.rateUsIcon),
-          SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "Rate Us",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_outward_rounded,
-            color: Colors.grey.shade400,
-            size: 16,
-          )
-        ],
-      ),
-    );
-  }
-
-  GestureDetector _buildShareCell(BuildContext context) {
-    return GestureDetector(
-      child: Row(
-        children: [
-          SvgPicture.asset(ImageConstants.instance.shareIcon),
-          SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "Share with Friends",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_outward_rounded,
-            color: Colors.grey.shade400,
-            size: 16,
-          )
-        ],
-      ),
-    );
-  }
-
-  GestureDetector _buildTermsCell(BuildContext context) {
-    return GestureDetector(
-      child: Row(
-        children: [
-          SvgPicture.asset(ImageConstants.instance.termsIcon),
-          SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "Terms of Use",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_outward_rounded,
-            color: Colors.grey.shade400,
-            size: 16,
-          )
-        ],
-      ),
-    );
-  }
-
-  GestureDetector _buildPrivacyPolicyCell(BuildContext context) {
-    return GestureDetector(
-      child: Row(
-        children: [
-          SvgPicture.asset(ImageConstants.instance.privacyIcon),
-          SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "Privacy Policy",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_outward_rounded,
-            color: Colors.grey.shade400,
-            size: 16,
-          )
-        ],
-      ),
-    );
-  }
-
-  GestureDetector _buildVersionCell(BuildContext context) {
-    return GestureDetector(
-      child: Row(
-        children: [
-          SvgPicture.asset(ImageConstants.instance.versionIcon),
-          SizedBox(width: context.screenWidth * 0.03),
-          const Text(
-            "OS Version",
-            style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
-          ),
-          const Spacer(),
           Text(
-            osVersion,
-            style: TextStyle(
-                color: Colors.grey.shade400, fontFamily: 'GalanoGrotesque'),
-          )
+            label,
+            style: const TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
+          ),
+          const Spacer(),
+          Icon(
+            Icons.arrow_outward_rounded,
+            color: Colors.grey.shade400,
+            size: 16,
+          ),
         ],
       ),
     );
   }
+
+  Row _buildVersionCell(BuildContext context) {
+    return Row(
+      children: [
+        SvgPicture.asset(ImageConstants.instance.versionIcon),
+        SizedBox(width: context.screenWidth * 0.03),
+        const Text(
+          "OS Version",
+          style: TextStyle(fontSize: 16, fontFamily: 'GalanoGrotesque'),
+        ),
+        const Spacer(),
+        Text(
+          osVersion,
+          style: TextStyle(
+              color: Colors.grey.shade400, fontFamily: 'GalanoGrotesque'),
+        ),
+      ],
+    );
+  }
+}
+
+Widget _buildDivider(BuildContext context) {
+  return Column(
+    children: [
+      SizedBox(height: context.screenHeight * 0.01),
+      const Divider(thickness: 0.3),
+    ],
+  );
 }
 
 class OSVersion {
