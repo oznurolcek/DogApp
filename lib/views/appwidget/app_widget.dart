@@ -44,15 +44,6 @@ class _AppWidgetState extends State<AppWidget> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Container(
-              height: context.screenHeight * 0.15,
-              color: Colors.transparent,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
             child: _buildTabBar(),
           ),
         ],
